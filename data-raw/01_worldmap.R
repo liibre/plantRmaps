@@ -15,6 +15,9 @@ pryr::object_size(world)
 world <- st_simplify(world, dTolerance = 0.01, preserveTopology = TRUE)
 pryr::object_size(world)
 
-#check names
-all(wo.simp$NAME_0 %in% world$NAME_0)
-wo.simp$NAME_0 <- tolower(textclean::replace_non_ascii(wo.simp$NAME_0))
+
+# correct names
+world$NAME_0 <- tolower(textclean::replace_non_ascii(world$NAME_0))
+
+usethis::use_data(world, internal = F, compress = "xz")
+
