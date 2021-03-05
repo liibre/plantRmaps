@@ -9,10 +9,10 @@ download.file("https://biogeo.ucdavis.edu/data/gadm3.6/gadm36_levels_shp.zip",
 unzip("data-raw/gadm36_levels_shp.zip", exdir = "data-raw/world")
 
 # read, check size in disk and simplify first!
-world <- st_read("data-raw/world/gadm36_0.shp")
-world
-pryr::object_size(world)
-world <- st_simplify(world, dTolerance = 0.01, preserveTopology = TRUE)
+world_original <- st_read("data-raw/world/gadm36_0.shp")
+world_original
+pryr::object_size(world_original)
+world <- st_simplify(world_original, dTolerance = 0.01, preserveTopology = TRUE)
 pryr::object_size(world)
 
 
