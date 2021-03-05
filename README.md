@@ -6,19 +6,14 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-This package is a dependency for the geographic data in plantR
-(<https://github.com/LimaRAF/plantR/>)
+This package creates reproducible maps of the world and Latin America
+and the Caribbean countries and exports those objects to be used as a
+dependency for package plantR (<https://github.com/LimaRAF/plantR/>).
 
 ## Installation
 
-You can install the released version of plantRmaps from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("plantRmaps")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+You can install the development version of plantRmaps from
+[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
