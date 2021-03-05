@@ -1,0 +1,28 @@
+Package: plantRmaps
+Title: Maps for Package plantR
+Version: 0.0.0.9000
+Authors@R: c(
+    person(given = "Andrea",
+           family = "Sánchez-Tapia",
+           role = c("aut", "cre"),
+           email = "andreasancheztapia@gmail.com",
+           comment = c(ORCID = "0000-0002-3521-4338")),
+    person(given = "Sara",
+           family = "Mortara",
+           role = c("aut"),
+           email = "saramortara@gmail.com",
+           comment = c(ORCID = "0000-0001-6221-7537")),
+    person(given = "Renato ",
+           family = "Ferreira de Lima",
+           role = c("aut"),
+           email = "raflima@usp.br",
+           comment = c(ORCID = "0000-0002-1048-0138")))
+Description: Creates reproducible maps for use by package plantR, a 
+ package for managing records from biological collections .
+License: GPL (>= 3)
+Encoding: UTF-8
+URL: https://github.com/liibre/plantRmaps
+BugReports: https://github.com/liibre/plantRmaps/issues
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1.9000
