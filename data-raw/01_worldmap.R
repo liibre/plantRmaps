@@ -5,11 +5,11 @@ library(countrycode)
 ## prepare worldMap
 # download shapefile. levels are separated and we need 0 for countries
 download.file("https://biogeo.ucdavis.edu/data/gadm3.6/gadm36_levels_shp.zip",
-              destfile = "data-raw/gadm36_levels_shp.zip") # beware timeout
-unzip("data-raw/gadm36_levels_shp.zip", exdir = "data-raw")
+              destfile = "data-raw/world/gadm36_levels_shp.zip") # beware timeout
+unzip("data-raw/gadm36_levels_shp.zip", exdir = "data-raw/world")
 
 # read, check size in disk and simplify first!
-world <- st_read("data-raw/gadm36_0.shp")
+world <- st_read("data-raw/world/gadm36_0.shp")
 world
 pryr::object_size(world)
 world <- st_simplify(world, dTolerance = 0.01, preserveTopology = TRUE)
