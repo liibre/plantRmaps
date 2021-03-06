@@ -2,14 +2,15 @@
 
 # remotes::install_github("liibre/Rocc")
 library(Rocc)
+library(sf)
 library(spData)
 library(dplyr)
 library(rworldmap)
 library(purrr)
 
 # first we need a standard country list to get the codes
-
-latam <- spData::world %>%
+data(world)
+latam <-   world %>%
   filter(region_un %in% c("Americas", "Seven seas (open ocean)")) %>%
   filter(subregion != "Northern America") %>%
   pull(name_long)
@@ -68,8 +69,15 @@ gadm_files <- list.files(destfolder, pattern = "rds$",
 # read everything
 gadm_tudo <- purrr::map(gadm_files, ~readRDS(.))
 
-#we need to set CRS because we lost it This must be something else because set_crs is not working. Check! ö
-gadm_crs <- purrr::map(gadm_tudo, ~sf::st_set_crs(.x, prj))
+#junta tudo para nao ser uma lista e nao precisar de purrr
+gadm_bind <- bind_rows(gadm_tudo)
+pryr::object_size(gadm_bind)
+
+#CRS estava dando erro mas agora foi
+st_crs(gadm_tudo)
+sf::st_crs(gadm_bind) <-  4326
+gadm_bind <- st_set_crs(gadm_bind, 4326)
+st_crs(gadm_bind)
 
 
 # formats columns that begin with NAME
@@ -82,7 +90,7 @@ rename_cols <- function(sf, var) {
 }
 
 # applies the function to the list of shapes
-latam_tudo <- purrr::map(gadm_crs, ~rename_cols(.x, "NAME"))
+latam_tudo <- rename_cols(gadm_bind, "NAME") #without purrr because it's not a list anymore, but i want to think about this
 # trop cool
 
 
@@ -90,12 +98,8 @@ pryr::object_size(latam_tudo) #202MB! but i think i love this object maybe the u
 
 
 # Symplifying the maps
- latam_simplified <- purrr::map(latam_tudo,
-                                ~st_simplify(.x,
-                                             dTolerance = 0.01,
-                                             preserveTopology = TRUE))
-pryr::object_size(latam_simplified)
-
+latam_simplified <- st_simplify(latam_tudo, dTolerance = 0.01, preserveTopology = T)
+pryr::object_size(latam_simplified)#21MB
 latamMap <- latam_simplified
 
-usethis::use_data(latamMap, internal = F, compress = "xz")
+usethis::use_data(latamMap, internal = F, compress = "xz", overwrite = TRUE)
